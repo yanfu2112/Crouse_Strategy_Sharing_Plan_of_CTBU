@@ -1,0 +1,267 @@
+<!-- -----------------------------------------------©重庆工商大学课程攻略共享计划--------------------------------------------------------- -->
+<!-- ------------------------------本网站由***创建并开源，本站所有内容完全免费，可供在线浏览和下载--------------------------------------------------------- -->
+<!-- ----------------------------------------本站为非营利性平台，其所有内容严禁商用--------------------------------------------------------- -->
+<!-- -----------------------------------------------©重庆工商大学课程攻略共享计划--------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重庆工商大学课程攻略共享计划</title>
+    <!-- 外部资源引入 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/Crouse_Strategy_Sharing_Plan_of_CTBU/index.html">
+    
+    <!-- Tailwind 自定义配置（深蓝色系） -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cqutb: {
+                            blue: '#1E40AF',    // 深蓝主色
+                            lightBlue: '#3B82F6',// 浅蓝辅助色
+                            darkBlue: '#1E3A8A', // 暗蓝强调色
+                            gray: '#F3F4F6'      // 背景浅灰
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['PingFang SC', 'Microsoft YaHei', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto { content-visibility: auto; }
+            .nav-shadow { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+            .card-hover { transition: all 0.3s ease; }
+            .card-hover:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(30,64,175,0.15); }
+            .link-hover { transition: all 0.2s ease; }
+            .link-hover:hover { color: #3B82F6; background-color: rgba(59,130,246,0.1); }
+            .menu-arrow { transition: transform 0.3s ease; }
+            .rotate-arrow { transform: rotate(180deg); }
+        }
+    </style>
+</head>
+
+<body class="bg-cqutb-gray text-gray-800">
+    <!-- 顶部导航栏（固定） -->
+    <header class="fixed w-full bg-white nav-shadow z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- 网站Logo与标题 -->
+            <a href="#" class="flex items-center gap-2">
+                <i class="fa-solid fa-book-open text-cqutb-blue text-2xl"></i>
+                <span class="text-xl font-bold text-cqutb-blue">重庆工商大学</span>
+                <span class="text-xl font-bold">课程攻略共享计划</span>
+            </a>
+
+            <!-- 搜索框 -->
+            <div class="flex items-center flex-1 max-w-md mx-8">
+                <input type="text" placeholder="搜索课程名称/编号/教师" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-cqutb-blue/50">
+                <button class="bg-cqutb-blue text-white px-4 py-2 rounded-r-lg hover:bg-cqutb-lightBlue transition-colors">
+                    <i class="fa-solid fa-search"></i>
+                </button>
+            </div>
+
+            <!-- 功能按钮 -->
+            <a href="#submit-guide" class="bg-cqutb-blue text-white px-4 py-2 rounded-lg hover:bg-cqutb-lightBlue transition-colors">
+                提交课程攻略
+            </a>
+        </div>
+    </header>
+
+    <!-- 主体三栏布局（顶部留空导航高度） -->
+    <div class="container mx-auto px-4 pt-20 pb-10 flex flex-col lg:flex-row gap-6">
+        <!-- 第一栏：调整后的多级课程目录 -->
+        <aside class="lg:w-1/5 w-full bg-white rounded-xl shadow-sm p-4 sticky top-20 h-fit">
+            <h2 class="text-lg font-bold text-cqutb-darkBlue mb-4 flex items-center">
+                <i class="fa-solid fa-list-ul mr-2"></i>课程目录
+            </h2>
+            
+            <!-- 课程列表（取消分类，直接排列） -->
+            <ul class="space-y-2 text-sm">
+                <!-- 1. 回到首页（首项） -->
+                <li>
+                    <a href="#" class="block py-2 px-3 rounded link-hover flex items-center">
+                        <i class="fa-solid fa-house-chimney mr-2 text-cqutb-blue"></i>
+                        回到首页
+                    </a>
+                </li>
+
+                <!-- 2. 高等数学（含子目录的多级菜单） -->
+                <li class="mt-1">
+                    <p class="font-medium cursor-pointer flex items-center py-2 px-3 rounded link-hover" onclick="toggleSubMenu('math-sub', 'math-arrow')">
+                        <i class="fa-solid fa-chevron-right text-xs mr-2 menu-arrow" id="math-arrow"></i>
+                        高等数学
+                    </p>
+                    <ul id="math-sub" class="pl-8 mt-1 space-y-1 hidden">
+                        <li><a href="#math1" class="block py-1 px-3 rounded link-hover">高等数学I</a></li>
+                        <li><a href="#math2" class="block py-1 px-3 rounded link-hover">高等数学II</a></li>
+                    </ul>
+                </li>
+
+                <!-- 3. 其他课程（依次往下排） -->
+                <li><a href="#linear" class="block py-2 px-3 rounded link-hover">线性代数</a></li>
+                <li><a href="#probability" class="block py-2 px-3 rounded link-hover">概率论与数理统计</a></li>
+                <li><a href="#english1" class="block py-2 px-3 rounded link-hover">大学英语（1）</a></li>
+                <li><a href="#english2" class="block py-2 px-3 rounded link-hover">大学英语（2）</a></li>
+                <li><a href="#physics" class="block py-2 px-3 rounded link-hover">大学物理</a></li>
+                <li><a href="#computer" class="block py-2 px-3 rounded link-hover">计算机基础</a></li>
+                <li><a href="#politics" class="block py-2 px-3 rounded link-hover">思想政治理论</a></li>
+                <li><a href="#micro" class="block py-2 px-3 rounded link-hover">微观经济学</a></li>
+                <li><a href="#macro" class="block py-2 px-3 rounded link-hover">宏观经济学</a></li>
+                <li><a href="#management" class="block py-2 px-3 rounded link-hover">管理学原理</a></li>
+                <li><a href="#python" class="block py-2 px-3 rounded link-hover">Python程序设计</a></li>
+                <li><a href="#java" class="block py-2 px-3 rounded link-hover">Java编程基础</a></li>
+                <li><a href="#database" class="block py-2 px-3 rounded link-hover">数据库原理</a></li>
+                <li><a href="#math-analysis" class="block py-2 px-3 rounded link-hover">数学分析</a></li>
+                <li><a href="#algorithm" class="block py-2 px-3 rounded link-hover">算法设计与分析</a></li>
+                <li><a href="#ai" class="block py-2 px-3 rounded link-hover">人工智能基础</a></li>
+            </ul>
+        </aside>
+
+        <!-- 第二栏：主要内容区（完全保留原内容） -->
+        <main class="lg:w-3/5 w-full bg-white rounded-xl shadow-sm p-6">
+            <!-- 首页欢迎模块 -->
+            <section class="mb-10">
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                    <div class="md:w-1/2">
+                        <h1 class="text-2xl md:text-3xl font-bold text-cqutb-darkBlue mb-4">
+                            重庆工商大学<br>课程攻略共享计划
+                        </h1>
+                        <p class="text-gray-600 mb-6">
+                            由学生自发创建的课程攻略平台，汇集全校各专业优质课程学习经验，涵盖选课建议、知识点梳理、考试重点、复习技巧等内容，帮助每一位工商学子高效学习、轻松应对课程挑战。
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="#hot-guides" class="bg-cqutb-blue text-white px-4 py-2 rounded-lg hover:bg-cqutb-lightBlue transition-colors">
+                                查看热门攻略
+                            </a>
+                            <a href="#submit-guide" class="border border-cqutb-blue text-cqutb-blue px-4 py-2 rounded-lg hover:bg-cqutb-blue/5 transition-colors">
+                                分享你的经验
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="https://picsum.photos/id/20/600/400" alt="重庆工商大学校园" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热门课程攻略 -->
+            <section id="hot-guides" class="mb-10">
+                <h2 class="text-xl font-bold text-cqutb-darkBlue mb-6 flex items-center">
+                    <i class="fa-solid fa-fire text-cqutb-lightBlue mr-2"></i>热门课程攻略
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- 攻略卡片1 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden card-hover">
+                        <div class="p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="bg-cqutb-blue/10 text-cqutb-blue text-xs px-2 py-1 rounded">公共基础课-数学类</span>
+                                <div class="flex items-center text-yellow-400 text-sm">
+                                    <i class="fa-solid fa-star"></i>
+                                    <span class="text-gray-600 ml-1">4.9</span>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2"><a href="#math1" class="text-cqutb-darkBlue hover:text-cqutb-lightBlue">高等数学（上）满分复习攻略</a></h3>
+                            <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                                详细梳理极限、导数、积分三大模块重点题型，附带往年真题解析和高频考点总结，零基础也能轻松掌握。
+                            </p>
+                            <div class="flex justify-between items-center text-sm text-gray-500">
+                                <span>作者：数学学院 22级李同学</span>
+                                <span>浏览：2386次</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 攻略卡片2 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden card-hover">
+                        <div class="p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="bg-cqutb-blue/10 text-cqutb-blue text-xs px-2 py-1 rounded">专业基础课-计算机类</span>
+                                <div class="flex items-center text-yellow-400 text-sm">
+                                    <i class="fa-solid fa-star"></i>
+                                    <span class="text-gray-600 ml-1">4.7</span>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2"><a href="#python" class="text-cqutb-darkBlue hover:text-cqutb-lightBlue">Python程序设计入门到精通</a></h3>
+                            <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                                从环境搭建到实战项目，涵盖语法基础、函数、面向对象、数据分析等内容，附代码示例和作业解答。
+                            </p>
+                            <div class="flex justify-between items-center text-sm text-gray-500">
+                                <span>作者：计信学院 21级王同学</span>
+                                <span>浏览：1852次</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 攻略卡片3 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden card-hover">
+                        <div class="p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="bg-cqutb-blue/10 text-cqutb-blue text-xs px-2 py-1 rounded">专业基础课-经管类</span>
+                                <div class="flex items-center text-yellow-400 text-sm">
+                                    <i class="fa-solid fa-star"></i>
+                                    <span class="text-gray-600 ml-1">4.8</span>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2"><a href="#micro" class="text-cqutb-darkBlue hover:text-cqutb-lightBlue">微观经济学考点速记手册</a></h3>
+                            <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                                整理需求供给、效用理论、厂商理论等核心章节考点，用思维导图梳理逻辑，配合案例理解难点。
+                            </p>
+                            <div class="flex justify-between items-center text-sm text-gray-500">
+                                <span>作者：经济学院 20级张同学</span>
+                                <span>浏览：1568次</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 攻略卡片4 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden card-hover">
+                        <div class="p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="bg-cqutb-blue/10 text-cqutb-blue text-xs px-2 py-1 rounded">公共基础课-英语类</span>
+                                <div class="flex items-center text-yellow-400 text-sm">
+                                    <i class="fa-solid fa-star"></i>
+                                    <span class="text-gray-600 ml-1">4.6</span>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2"><a href="#cet4" class="text-cqutb-darkBlue hover:text-cqutb-lightBlue">CET-4高频词汇与听力技巧</a></h3>
+                            <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                                总结近5年四级高频词汇表，拆解听力长对话、短文理解答题逻辑，附模拟题训练方法。
+                            </p>
+                            <div class="flex justify-between items-center text-sm text-gray-500">
+                                <span>作者：外国语学院 22级刘同学</span>
+                                <span>浏览：1290次</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 查看更多按钮 -->
+                <div class="mt-8 text-center">
+                    <a href="#all-guides" class="inline-block bg-white border border-cqutb-blue text-cqutb-blue px-6 py-2 rounded-lg hover:bg-cqutb-blue/5 transition-colors">
+                        查看全部课程攻略 <i class="fa-solid fa-angle-right ml-1"></i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- 攻略提交区 -->
+            <section id="submit-guide" class="bg-cqutb-gray rounded-xl p-6">
+                <h2 class="text-xl font-bold text-cqutb-darkBlue mb-4 flex items-center">
+                    <i class="fa-solid fa-pen-to-square text-cqutb-lightBlue mr-2"></i>提交课程攻略
+                </h2>
+                <form>
+                    <div class="mb-4">
+                        <label for="course-name" class="block text-sm font-medium text-gray-700 mb-1">课程名称</label>
+                        <input type="text" id="course-name" placeholder="例如：高等数学I" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cqutb-blue/50">
+
+<!-- --------------------------------------©重庆工商大学课程攻略共享计划 本站所有内容严禁商用---------------------------------------------------------- -->
