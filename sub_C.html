@@ -76,17 +76,120 @@
             </a>
 
             <!-- 搜索框 -->
-            <div class="flex items-center flex-1 max-w-md mx-8">
-                <input type="text" placeholder="搜索课程名称/编号/教师" 
-                    class="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-cqutb-blue/50">
-                <button class="bg-cqutb-blue text-white px-4 py-2 rounded-r-lg hover:bg-cqutb-lightBlue transition-colors">
-                    <i class="fa-solid fa-search"></i>
-                </button>
-            </div>
+            <!-- 在原搜索框位置替换并添加相关代码 -->
 
+<!-- 搜索框 -->
+<div class="flex items-center flex-1 max-w-md mx-8">
+    <input type="text" id="search-input" placeholder="搜索课程名称" 
+        class="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-cqutb-blue/50">
+    <button id="search-btn" class="bg-cqutb-blue text-white px-4 py-2 rounded-r-lg hover:bg-cqutb-lightBlue transition-colors">
+        <i class="fa-solid fa-search"></i>
+    </button>
+</div>
+
+<!-- 搜索结果容器 (添加在搜索框下方) -->
+<div id="search-results" class="hidden absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg p-4 z-50 max-h-96 overflow-y-auto"></div>
+
+<!-- 搜索功能脚本 (添加在body结束前) -->
+<script>
+// 课程数据 - 可以从实际数据源获取
+const courses = [
+    { name: "高等数学 I", link: "./sub_gdsx1.html" },
+    { name: "高等数学 II", link: "./sub_gdsx2.html" },
+    { name: "线性代数", link: "./sub_xxds.html" },
+    { name: "大学物理 I", link: "./sub_dxwl1.html" },
+    { name: "大学物理 II", link: "./sub_dxwl2.html" },
+    { name: "大学物理实验", link: "./sub_dxwlsy.html" },
+    { name: "大学英语 I", link: "./sub_dxyy1.html" },
+    { name: "大学英语 II", link: "./sub_dxyy2.html" },
+    { name: "复变函数与积分变换", link: "./sub_fbhs.html" },
+    { name: "概率与数理统计", link: "./sub_gll.html" },
+    { name: "思想道德与法治", link: "./sub_sxdd.html" },
+    { name: "中国近代史纲要", link: "./sub_zgjxds.html" },
+    { name: "马克思主义基本原理", link: "./sub_mkszy.html" },
+    { name: "计算思维导论", link: "./sub_jsswdl.html" },
+    { name: "计算思维导论实验", link: "./sub_jsswdlsy.html" },
+    { name: "程序设计基础(C语言)", link: "./sub_C.html" },
+    { name: "程序设计基础(C语言)实验", link: "./sub_Csy.html" },
+    { name: "电路分析", link: "./sub_dlfx.html" },
+    { name: "电路分析实验", link: "./sub_dlfxsy.html" },
+    { name: "信号与系统", link: "./sub_xhyxt.html" },
+    { name: "数字电子技术(数字电路)", link: "./sub_szdl.html" },
+    { name: "电子线路(模拟电路)", link: "./sub_mndl.html" },
+    { name: "电子技术基础实验I", link: "./sub_dzjsjcsy1.html" },
+    { name: "电子技术基础实验II(数电模电实验)", link: "./sub_dzjsjcsy2.html" }
+];
+
+// 获取DOM元素
+const searchInput = document.getElementById('search-input');
+const searchBtn = document.getElementById('search-btn');
+const searchResults = document.getElementById('search-results');
+const searchContainer = searchInput.parentElement;
+
+// 设置搜索结果容器的位置
+searchResults.style.left = `${searchContainer.offsetLeft}px`;
+searchResults.style.width = `${searchContainer.offsetWidth}px`;
+
+// 搜索函数
+function searchCourses(query) {
+    if (!query.trim()) {
+        searchResults.classList.add('hidden');
+        return;
+    }
+    
+    const results = courses.filter(course => 
+        course.name.toLowerCase().includes(query.toLowerCase())
+    );
+    
+    displayResults(results);
+}
+
+// 显示搜索结果
+function displayResults(results) {
+    if (results.length === 0) {
+        searchResults.innerHTML = '<p class="text-gray-500 py-2">没有找到匹配的课程</p>';
+        searchResults.classList.remove('hidden');
+        return;
+    }
+    
+    let html = '';
+    results.forEach(course => {
+        html += `
+            <a href="${course.link}" class="block py-2 px-3 rounded link-hover hover:bg-gray-100">
+                ${course.name}
+            </a>
+        `;
+    });
+    
+    searchResults.innerHTML = html;
+    searchResults.classList.remove('hidden');
+}
+
+// 事件监听
+searchBtn.addEventListener('click', () => {
+    searchCourses(searchInput.value);
+});
+
+searchInput.addEventListener('input', () => {
+    searchCourses(searchInput.value);
+});
+
+searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        searchCourses(searchInput.value);
+    }
+});
+
+// 点击页面其他地方关闭搜索结果
+document.addEventListener('click', (e) => {
+    if (!searchContainer.contains(e.target) && !searchResults.contains(e.target)) {
+        searchResults.classList.add('hidden');
+    }
+});
+</script>
             <!-- 功能按钮 -->
-            <a href="#submit-guide" class="bg-cqutb-blue text-white px-4 py-2 rounded-lg hover:bg-cqutb-lightBlue transition-colors">
-                提交课程攻略
+            <a href="https://github.com/yanfu2112/Crouse_Strategy_Sharing_Plan_of_CTBU"title="进入Github" class="bg-cqutb-blue text-white px-4 py-2 rounded-lg hover:bg-cqutb-lightBlue transition-colors">
+                gitHub
             </a>
         </div>
     </header>
